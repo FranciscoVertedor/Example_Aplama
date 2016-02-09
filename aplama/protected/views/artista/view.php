@@ -4,16 +4,8 @@
 $this->pageTitle=Yii::app()->name . ' - Perfil '. $model[0]['nombre']." ".$model[0]['apellido'];
 $this->breadcrumbs=array(
 	$model[0]['nombre']." ".$model[0]['apellido'],
-         //$model->nombre." ". $model->apellido,
 );
-//var_dump($model[0]['imagenxartistas']);exit;
-/*$this->menu=array(
-	array('label'=>'List Artista', 'url'=>array('index')),
-	array('label'=>'Create Artista', 'url'=>array('create')),
-	array('label'=>'Update Artista', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Artista', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Artista', 'url'=>array('admin')),
-);*/
+
 ?>
 
 <div class="containerArtista">
@@ -21,12 +13,10 @@ $this->breadcrumbs=array(
     $rutaAntiguaPerfil  =  "uploads/imagenesartistas/" . $model[0]['imagen'];
     $rutaNuevaPerfil    =  "images/uploads/artistas/".$model[0]['id']."/perfil/". $model[0]['imagen'];
     $rutaNoPerfil =  "images/uploads/artistas/no_perfil.png";
-    //echo "<div class='txtcls' id='anvent'> </div>";
     if((file_exists($rutaAntiguaPerfil))&&($rutaAntiguaPerfil != "uploads/imagenesartistas/")){
         echo "<div class='imgPerfilArtista'>".CHtml::image(Yii::app()->baseUrl."/".$rutaAntiguaPerfil,'alt',array('width'=>'160','height'=>'auto'))."</div>";
     }else if(file_exists($rutaNuevaPerfil)){
         echo "<div class='imgPerfilArtista'>".CHtml::image(Yii::app()->baseUrl."/".$rutaNuevaPerfil,'alt',array('width'=>'160','height'=>'auto',htmlOptions=>array('class'=>'imgPerfilArtista')))."</div>";
-        //echo CHtml::image(Yii::app()->baseUrl."/".$rutaNueva,'alt',array('width'=>'100','height'=>'100')); 
     }else{
         echo "<div class='imgPerfilArtista'>".CHtml::image(Yii::app()->baseUrl."/".$rutaNoPerfil,'alt',array('width'=>'160','height'=>'auto',htmlOptions=>array('class'=>'imgPerfilArtista')))."</div>";
     }
@@ -104,26 +94,4 @@ $this->breadcrumbs=array(
     </script>
 <?php Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl.'/css/lightbox/lightbox.css'); ?>
 <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/lightbox/lightbox.min.js',CClientScript::POS_END); ?>
-<?php //Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl.'/css/pilaImagesGaleria/custom.css'); ?>
 <?php Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl.'/css/pilaImagesGaleria/pila.css'); ?>
-<?php /*$this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'nombre',
-		'apellido',
-		'fecha_nacimiento',
-		'especialidad',
-		'residencia',
-		'presentacion',
-		'activo',
-		'curriculum',
-		'email',
-		'web',
-		'imagen',
-		//'password',
-		'usuario',
-		'usuario_url',
-		'telefono',
-	),
-)); */?>
