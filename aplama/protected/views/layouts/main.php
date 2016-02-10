@@ -21,7 +21,7 @@
 		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-		  ga('create', 'UA-45945410-2', 'mialojamiento.es');
+		  ga('create', '', '');
 		  ga('send', 'pageview');
 	</script>
         <link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl; ?>/favicon.png" type="image/x-icon" />
@@ -88,7 +88,6 @@
                                             array('label'=>'instalación', 'url'=>array('/artista/especialidad','id'=>'19','esp'=>'Instalacións')),
                                             array('label'=>'digital', 'url'=>array('/artista/especialidad','id'=>'20','esp'=>'Digital')),
                                 )),
-                                /*array('label'=>'Obras', 'url'=>array('/imagenxartista/index')),*/
                                 array('label'=>'Enlaces', 'url'=>array('/url/index')),
                                 array('label'=>'Nosotros', 'url'=>array('/site/page', 'view'=>'about')),
                                 array('label'=>'Contacto', 'url'=>array('/site/contact')), 
@@ -107,7 +106,6 @@
 	<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
 			'links' =>   $this->breadcrumbs,
-                        //'homeLink'=>   CHtml::link('Inicio', Yii::app()->homeUrl)
                         'homeLink'=>   CHtml::link('Inicio', array('Site/index'))
 		)); ?><!-- breadcrumbs -->
 	<?php endif?>
