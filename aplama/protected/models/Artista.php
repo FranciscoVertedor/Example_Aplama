@@ -53,9 +53,7 @@ class Artista extends CActiveRecord
 			array('telefono', 'length', 'max'=>100),
                         array('image', 'file','types'=>'jpg, gif, png', 'allowEmpty'=>true, 'on'=>'update'), // this will allow empty field when page is update (remember here i create scenario update)
                         array('token', 'length', 'max'=>150),
-                        //array('email','email'),
-                        //array('web','url'),
-                        //
+                        
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('nombre, apellido, fecha_nacimiento, fecha_artista, especialidad, residencia, presentacion, activo, curriculum, email, web, imagen, password, usuario, usuario_url, telefono', 'safe', 'on'=>'search'),
