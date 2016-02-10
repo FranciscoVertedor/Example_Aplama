@@ -51,14 +51,13 @@ class ArtistaController extends Controller
 	 */
 	public function actionView($id)
 	{
-            //$modelEspecxartista = Artista::model()->with('especialidadxartistas')->findAll('idartista=:id',array(':id'=>$id));
+                $id= (int)$id;
                 $model = Artista::model()->with('imagenxartistas')->findall('idartista=:id',array(':id'=>$id));
                 if(empty($model)){
                     $model = Artista::model()->findall('id=:id',array(':id'=>$id));
                 }
 
                 $this->render('view',array(
-			//'model'=>$this->loadModel($id),
                         'model'=>$model
 		));
 	}
@@ -96,10 +95,11 @@ class ArtistaController extends Controller
 
 	/**
 	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * If update is successful, the browser will be redirected to the 'update' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
 	public function actionUpdate($id){
+                $id = (int)$id;
 		$modelArtista=$this->loadModel($id);
                 $modelEspecxartista = Artista::model()->with('especialidadxartistas')->findAll('idartista=:id',array(':id'=>$id));
                 $modelEspecxartista2 = Especialidadxartista::model()->findAll('idartista=:id',array(':id'=>$id));//para salvar los datos
@@ -124,12 +124,8 @@ class ArtistaController extends Controller
                                 }
                                 $modelArtista->imagen = $uploadedFile->name;
                             }
-                            //var_dump($_POST["curriculum"]);
-                            //Hacer que el password no se elimine con el guardado
-                            if($password == $modelArtista->password){
-                                $modelArtista->password = $password;
-                            }
-                            else{
+                            //store the password when the user submit the form
+                            if($password != $modelArtista->password){
                                 $modelArtista->password=md5($modelArtista->password);
                             }
                             if($modelArtista->fecha_nacimiento==''){
@@ -187,6 +183,7 @@ class ArtistaController extends Controller
 	 */
 	public function actionDelete($id)
 	{
+                $id=(int)$id;
 		$this->loadModel($id)->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -240,6 +237,7 @@ class ArtistaController extends Controller
 	 */
 	public function loadModel($id)
 	{
+                $id=(int)$id;
 		$model=Artista::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
@@ -260,6 +258,7 @@ class ArtistaController extends Controller
 	}
         public function actionEspecialidad($id,$esp)
         {
+            $id=(int)$id;
             $dataProvider = new CActiveDataProvider('Artista',array(
                                                                     'criteria'=>array(
                                                                         'join'=>'INNER JOIN especialidadxartista e ON e.idartista = t.id',
@@ -283,6 +282,7 @@ class ArtistaController extends Controller
         }
         public function actionEspxartista($id,$esp)
         {
+            $id=(int)$id;
             $model = Especialidadxartista::model()->with('idartista0')->together()->findAll('idespecialidad=:id',array(':id'=>$id));
             $dataProvider = new CActiveDataProvider('Artista',array(
                                                                     'criteria'=>array(
