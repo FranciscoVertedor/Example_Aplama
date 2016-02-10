@@ -111,25 +111,15 @@ class Imagenxartista extends CActiveRecord
         }
 
         public function addImages( ) {
-            //SELECT * FROM usuarios ORDER BY id DESC LIMIT 1 
-            /*$id_ultimo_reg = Yii::app()->db->createCommand()
-                            ->select('id')
-                            ->from('imagenxartista')
-                            ->order('imagenxartista.id desc')
-                            ->limit(1)
-                            ->queryRow();*/
-            //If we have pending images
             $id = Yii::app()->session['idartista'];
             if( Yii::app( )->user->hasState( 'images' ) ) {
                 $thumbnailsPath = realpath( Yii::app( )->getBasePath( )."/../images/uploads/tmp/thumbs/" )."/";
                 $userImages = Yii::app( )->user->getState( 'images' );
-                //$id = Yii::app()->user->getId();
                 //Resolve the final path for our images
                 $path = Yii::app( )->getBasePath( )."/../images/uploads/artistas/{$id}/galeria/";
                 //Create the folder and give permissions if it doesnt exists
                 if( !is_dir( $path ) ) {
                     mkdir( $path,0777,true);
-                    //chmod( $path, 0777 );
                 }
 
                 //Now lets create the corresponding models and move the files
@@ -139,15 +129,11 @@ class Imagenxartista extends CActiveRecord
                         if( rename( $image["path"], $path.$image["filename"] ) ) {
                             chmod( $path.$image["filename"], 0777 );
                             $img = new Imagenxartista( );
-                            /*$img->size = $image["size"];
-                            $img->mime = $image["mime"];*/
-                           // $img->id = $id_ultimo_reg;
                             $img->idartista = $id;
                             $img->imagen = $image["filename"];
                             $img->descripcion = $image["description"];
-                            //$img->source = "/images/uploads/{$this->id}/".$image["filename"];
                             
-                            //Guarda el thumbnail.
+                            //Store the thumbnail.
                             $rutaImagen = Yii::app( )->getBasePath( )."/../images/uploads/artistas/{$id}/galeria/".$image["filename"] ;
                             $rutaThumbnail = Yii::app( )->getBasePath( )."/../images/uploads/artistas/{$id}/galeria/thumbs/200x200/" ;
                             $rutaThumbnailImagen = Yii::app( )->getBasePath( )."/../images/uploads/artistas/{$id}/galeria/thumbs/200x200/".$image["filename"] ;
