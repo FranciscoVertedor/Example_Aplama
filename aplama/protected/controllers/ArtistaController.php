@@ -51,7 +51,7 @@ class ArtistaController extends Controller
 	 */
 	public function actionView($id)
 	{
-                $id= (int)$id;
+                $id= intval($id);
                 $model = Artista::model()->with('imagenxartistas')->findall('idartista=:id',array(':id'=>$id));
                 if(empty($model)){
                     $model = Artista::model()->findall('id=:id',array(':id'=>$id));
@@ -99,7 +99,7 @@ class ArtistaController extends Controller
 	 * @param integer $id the ID of the model to be updated
 	 */
 	public function actionUpdate($id){
-                $id = (int)$id;
+                $id = intval($id);
 		$modelArtista=$this->loadModel($id);
                 $modelEspecxartista = Artista::model()->with('especialidadxartistas')->findAll('idartista=:id',array(':id'=>$id));
                 $modelEspecxartista2 = Especialidadxartista::model()->findAll('idartista=:id',array(':id'=>$id));//para salvar los datos
@@ -143,8 +143,9 @@ class ArtistaController extends Controller
                                 }
                                 if(!empty($modelEspecxartista2)){
                                    $qD = "DELETE FROM `especialidadxartista`
-                                            WHERE idartista={$id}";
+                                            WHERE idartista={$id}, :idArtista";
                                    $cmdD = Yii::app()->db->createCommand($qD);
+                                   $cmdD->bindParam(':idArtista', $id , PDO::PARAM_INT);
                                    $cmdD->execute();
                                 }
                                 
@@ -168,7 +169,7 @@ class ArtistaController extends Controller
                                 'modelEspecxartista2'=>$modelEspecxartista2,
                                 'modelEspecialidades'=>$modelEspecialidades,
                                 'countImages'=>$countImages,
-                        )); 
+                    )); 
                 }
                 else
                 {
@@ -183,7 +184,7 @@ class ArtistaController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-                $id=(int)$id;
+                $id=intval($id);
 		$this->loadModel($id)->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -237,7 +238,7 @@ class ArtistaController extends Controller
 	 */
 	public function loadModel($id)
 	{
-                $id=(int)$id;
+                $id=intval($id);
 		$model=Artista::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
@@ -258,7 +259,7 @@ class ArtistaController extends Controller
 	}
         public function actionEspecialidad($id,$esp)
         {
-            $id=(int)$id;
+            $id=intval($id);
             $dataProvider = new CActiveDataProvider('Artista',array(
                                                                     'criteria'=>array(
                                                                         'join'=>'INNER JOIN especialidadxartista e ON e.idartista = t.id',
@@ -266,26 +267,18 @@ class ArtistaController extends Controller
                                                                         'condition'=>'e.idespecialidad='.$id. ' AND t.activo=1',
                                                                     )
                                                                     ));
-             /*$resp = array('dataProvider'=>$dataProvider);
-            echo CJavaScript::jsonEncode($resp);
-            Yii::app()->end();*/
 		$this->render('index_espxart',array(
 			'dataProvider'=>$dataProvider,
                         'esp'=>$esp,
                         'id'=>$id,
 		));
-            //$model = Especialidadxartista::model()->with('idartista0')->findAll('idespecialidad=:id',array(':id'=>$id));
-
-            /*$this->renderPartial('/Especialidadxartista/_form_especialidadxartista',array(
-			'model'=>$model,
-		));*/
         }
         public function actionEspxartista($id,$esp)
         {
-            $id=(int)$id;
+            $id=intval($id);
             $model = Especialidadxartista::model()->with('idartista0')->together()->findAll('idespecialidad=:id',array(':id'=>$id));
             $dataProvider = new CActiveDataProvider('Artista',array(
-                                                                    'criteria'=>array(
+                                                                    '   criteria'=>array(
                                                                         'join'=>'INNER JOIN especialidadxartista e ON e.idartista = t.id',
                                                                         'order'=>'t.apellido ASC',
                                                                         'condition'=>'e.idespecialidad='.$id. ' AND t.activo=1',
@@ -296,9 +289,5 @@ class ArtistaController extends Controller
             'esp'=>$esp,
             'id'=>$id,
                 )); 
-            //Yii::app()->end();
-            /*$resp = array('dataProvider'=>$dataProvider,'id'=>'13');
-            echo CJavaScript::jsonEncode($resp);
-            Yii::app()->end();*/
         }
 }
