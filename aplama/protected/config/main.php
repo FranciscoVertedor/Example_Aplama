@@ -47,28 +47,10 @@ return array(
                     'analytics'=>array(
                         'trackingId'=>'',
                         'profileId'=>,
-                        'accessToken'=>'{"access_token":"","token_type":"Bearer","expires_in":3600,"refresh_token":"","created":1400285762}',
+                        'accessToken'=>'{"access_token":"","token_type":"","expires_in":,"refresh_token":"","created":}',
                     ),
                 ),
             'admin',
-		// uncomment the following to enable the Gii tool
-                /*'gii' => array(
-                    'generatorPaths' => array('bootstrap.gii'),
-                ),*/
-                /*'gii'=>array(
-                    'generatorPaths'=>array(
-                         'bootstrap.gii',
-                 ),
-                ),*/
-                 
-		/*'gii'=>array(
-			'class'=>'system.gii.GiiModule',
-			'password'=>'AplamajuradO14-15',
-			// If removed, Gii defaults to localhost only. Edit carefully to taste.
-			'ipFilters'=>array('127.0.0.1','::1'),
-		),*/
-             
-		
 	),
 
 	// application components
@@ -85,9 +67,6 @@ return array(
 			'urlFormat'=>'path',
 			'rules'=>array(
 				'Eventos'=>'eventos/index',
-				/*'<controller:\w+>/<id:\d+>'=>'<controller>/view',
-				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',*/
 			),
 		),
                 
@@ -106,32 +85,16 @@ return array(
                 'swiftMailer' => array(
                     'class' => 'application.extensions.swiftMailer.SwiftMailer',
                 ),
-		/*'db'=>array(
-			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
-		),*/
 		'db'=>array(
-                    /*'class'=>'system.db.CDbConnection',
-                    'connectionString'=>'mysql:;dbname=',
-                    'username'=>'',
-                    'password'=>'',*/
+                  
                    'class'=>'system.db.CDbConnection',
-		   'connectionString'=>'mysql:host=localhost;dbname=',
+		   'connectionString'=>'mysql:host=;dbname=',
 		   'username'=>'root',
 		   'password'=>'',
                    'charset'=>'utf8',
 
 		),
 
-		// uncomment the following to use a MySQL database
-		/*
-		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=testdrive',
-			'emulatePrepare' => true,
-			'username' => '',
-			'password' => '',
-			'charset' => 'utf8',
-		),
-		*/
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',
@@ -143,12 +106,6 @@ return array(
 					'class'=>'CFileLogRoute',
 					'levels'=>'error, warning',
 				),
-				// uncomment the following to show log messages on web pages
-				/*
-				array(
-					'class'=>'CWebLogRoute',
-				),
-				*/
 			),
 		),
 	),
